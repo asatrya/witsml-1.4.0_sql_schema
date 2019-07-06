@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `witsml`.`mudLogs` (
+  `uid` STRING NOT NULL,
+  `uidWell` STRING NOT NULL,
+  `uidWellbore` STRING NOT NULL,
+  `nameWell` STRING NOT NULL,
+  `nameWellbore` STRING NOT NULL,
+  `name` STRING NOT NULL,
+  `objectGrowing` BOOL,
+  `dTim` timestamp,
+  `mudLogCompany` STRING,
+  `mudLogEngineers` STRING,
+  `startMd` FLOAT64,
+  `startMd_uom` STRING,
+  `endMd` FLOAT64,
+  `endMd_uom` STRING,
+  `commonData_dTimCreation` timestamp,
+  `commonData_dTimLastChange` timestamp,
+  `commonData_itemState` STRING,
+  `commonData_defaultDatum` STRING
+);
