@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	targetNamespace="http://www.witsml.org/schemas/1series" 
+	xmlns:witsml="http://www.witsml.org/schemas/1series"
+	xmlns:abs="http://www.energistics.org/schemas/abstract" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	version="1.4.0">
+	<!--                                                         -->
+	<!-- Energistics License Agreement
+	This file is distributed under the Energistics License Agreement at
+	http://www.energistics.org
+	Use of this file constitutes agreement with the Energistics License Agreement.
+	Copyright (c) 2008 Energistics. All rights reserved.
+	Energistics, WITSML, PRODML and RESQML are trademarks or registered trademarks of Energistics.
+	-->
+	<!--                                                         -->
+	<xsd:import namespace="http://www.energistics.org/schemas/abstract"
+		     schemaLocation="../../abstract_v1.0/xsd_schemas/sub_abstractSubstitutionGroup.xsd"/>
+	<!--                                                         -->
+	<xsd:include schemaLocation="cs_documentInfo.xsd"/>
+	<xsd:include schemaLocation="grp_trajectoryStation.xsd"/>
+	<xsd:include schemaLocation="cs_commonData.xsd"/>
+	<xsd:include schemaLocation="cs_customData.xsd"/>
+	<xsd:include schemaLocation="attgrp_objectUid.xsd"/>
+	<!--                                                         -->
+	<xsd:annotation>
+		<xsd:documentation>DEPRECATED. Trajectory station schema that supports the WITSML standard. </xsd:documentation>
+	</xsd:annotation>
+	<!--                                                         -->
+	<xsd:element name="trajectoryStations" type="witsml:obj_trajectoryStations" substitutionGroup="abs:abstractDataObject">
+		<xsd:annotation>
+			<xsd:documentation>DEPRECATED - this object was originally included so that individual
+			stations could be updated or deleted within a trajectory. Since the API now supports
+			this capability for all objects, this object is no longer needed and will be deleted in a
+			future version.
+			The WITSML API mandated plural root element which allows 
+			multiple singular objects to be sent. The plural name is formed by adding
+			an "s" to the singular name.</xsd:documentation>
+			<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-95, Change=Deprecated</xsd:appinfo>
+			<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-81, Change=Non-semantic</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<!--                                                         -->
+	<xsd:complexType name="obj_trajectoryStations">
+		<xsd:annotation>
+			<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-81, Change=Changed-type-from:none</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="abs:abstractObject">
+				<xsd:sequence>
+					<xsd:element name="documentInfo" type="witsml:cs_documentInfo" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Information about the XML message instance.  </xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="trajectoryStation" type="witsml:obj_trajectoryStation" minOccurs="1" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>A single trajectory station.  </xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>	
+				<xsd:attribute name="version" type="witsml:schemaVersionString" use="required">
+					<xsd:annotation>
+						<xsd:documentation>Data object schema version.  The fourth level must match the 
+						version of the schema constraints (enumerations and XML loader files) that are assumed
+						by the document instance.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--                                                         -->
+	<xsd:complexType name="obj_trajectoryStation">
+		<xsd:sequence>
+			<xsd:element name="nameWell" type="witsml:nameString" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Human recognizable context for the well that contains the wellbore.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="nameWellbore" type="witsml:nameString" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Human recognizable context for the wellbore that contains the trajectory.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="nameTrajectory" type="witsml:nameString" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Human recognizable context for the trajectory that contains the trajectory station.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:group ref="witsml:grp_trajectoryStation" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The non-contextual elements for a trajectory station.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:group>
+			<xsd:element name="commonData" type="witsml:cs_commonData" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>A container element that contains elements that are common to all data 
+					objects.  </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="customData" type="witsml:cs_customData" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>A container element that can contain custom or user defined 
+					data elements.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="uidWell" type="witsml:uidParentString" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>Unique identifier for the well. This uniquely represents 
+				the well referenced by the (possibly non-unique) nameWell. </xsd:documentation>
+				<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-5, Change=Changed-type-from:uidString</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="uidWellbore" type="witsml:uidParentString" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>Unique identifier for the wellbore. This uniquely represents 
+				the wellbore referenced by the (possibly non-unique) nameWellbore. </xsd:documentation>
+				<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-5, Change=Changed-type-from:uidString</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="uidTrajectory" type="witsml:uidParentString" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>Unique identifier for the trajectory. This uniquely represents 
+				the trajectory referenced by the (possibly non-unique) nameTraj. </xsd:documentation>
+				<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-5, Change=Changed-type-from:uidString</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attributeGroup ref="witsml:attgrp_objectUid">
+			<xsd:annotation>
+				<xsd:documentation>Unique identifier for the trajectory station.  </xsd:documentation>
+				<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-5, Change=Changed-type-from:attgrp_uid</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attributeGroup>
+	</xsd:complexType>
+	<!--                                                         -->
+</xsd:schema>

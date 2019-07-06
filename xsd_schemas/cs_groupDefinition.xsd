@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	targetNamespace="http://www.witsml.org/schemas/1series" 
+	xmlns:witsml="http://www.witsml.org/schemas/1series" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	version="1.4.0">
+	<!--                                                         -->
+	<!-- Energistics License Agreement
+	This file is distributed under the Energistics License Agreement at
+	http://www.energistics.org
+	Use of this file constitutes agreement with the Energistics License Agreement.
+	Copyright (c) 2008 Energistics. All rights reserved.
+	Energistics, WITSML, PRODML and RESQML are trademarks or registered trademarks of Energistics.
+	-->
+	<!--                                                         -->
+	<xsd:include schemaLocation="cs_channelDefinition.xsd"/>
+	<xsd:include schemaLocation="cs_extensionNameValue.xsd"/>
+	<xsd:include schemaLocation="cs_interval.xsd"/>
+	<!--                                                         -->
+	<xsd:complexType name="cs_groupDefinition">
+		<xsd:annotation>
+			<xsd:documentation>WITSML realtime group definition component object.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="id" type="witsml:str32" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The identifier of this group. 
+					This must be unique for all groups within a realtime header.
+					STORE UNIQUE KEY: When accessed via the Store Interface, for each instance of groupDefinition
+					associated with the same header, the "id" must be unique.</xsd:documentation>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-78, Change=Modified-description</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="multiplexed" type="witsml:logicalBoolean" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>True (value of "1" or "true") indicates that this group
+					will be represented by multiplexed data records. False (value of "0" or "false")
+					indicates that this group will be represented by de-multiplexed data channels.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="dataGroup" type="witsml:kindString" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The name of the grouping represented by channels in this realtime.
+					A group represents a named combination of channels and the channels in a particular
+					realtime should be represented in that list.</xsd:documentation>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-78, Change=Added</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="interval" type="witsml:cs_interval" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The depth or time interval over which the group data are 
+					requested to be derived.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0" maxOccurs="1">
+				<xsd:element name="persistedAsLog" type="witsml:refNameString" minOccurs="0" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>A pointer to the log (within the context of the current wellbore)
+						that will be used to persist this data.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="persistedAsWellLog" type="witsml:refNameString" minOccurs="0" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>A pointer to the wellLog (within the context of the current wellbore)
+						that will be used to persist this data.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="comment" type="witsml:commentString" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>A comment or remark about this group.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="channelDefinition" type="witsml:cs_channelDefinition" minOccurs="1" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>The definition of a channel.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="extensionNameValue" type="witsml:cs_extensionNameValue" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Extensions to the schema based on a name-value construct.</xsd:documentation>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-71, Change=Added</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

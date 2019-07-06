@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	targetNamespace="http://www.witsml.org/schemas/1series" 
+	xmlns:witsml="http://www.witsml.org/schemas/1series" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	version="1.4.0">
+	<!--                                                         --> 
+	<!-- Energistics License Agreement
+	This file is distributed under the Energistics License Agreement at
+	http://www.energistics.org
+	Use of this file constitutes agreement with the Energistics License Agreement.
+	Copyright (c) 2008 Energistics. All rights reserved.
+	Energistics, WITSML, PRODML and RESQML are trademarks or registered trademarks of Energistics.
+	-->
+	<!--                                                         -->
+	<xsd:include schemaLocation="typ_dataTypes.xsd"/>
+	<!--                                                         -->
+	<xsd:complexType name="cs_depthRegPoint">
+		<xsd:annotation>
+			<xsd:documentation>The position of a pixel of an image, in x-y coordinates.</xsd:documentation>
+			<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-15, Change=Added</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="x" type="witsml:nonNegativeBigCount" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The x pixel position of a point.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="y" type="witsml:nonNegativeBigCount" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The y pixel position of a point.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--                                                         -->
+</xsd:schema>

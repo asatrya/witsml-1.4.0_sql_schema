@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	targetNamespace="http://www.witsml.org/schemas/1series" 
+	xmlns:witsml="http://www.witsml.org/schemas/1series" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	version="1.4.0">
+	<!--                                                         -->
+	<!-- Energistics License Agreement
+	This file is distributed under the Energistics License Agreement at
+	http://www.energistics.org
+	Use of this file constitutes agreement with the Energistics License Agreement.
+	Copyright (c) 2008 Energistics. All rights reserved.
+	Energistics, WITSML, PRODML and RESQML are trademarks or registered trademarks of Energistics.
+	-->
+	<!--                                                         -->
+	<xsd:include schemaLocation="cs_wellLogCurveInfo.xsd"/>
+	<xsd:include schemaLocation="cs_blockInfo.xsd"/>
+	<xsd:include schemaLocation="cs_wellLogData.xsd"/>
+	<xsd:include schemaLocation="cs_depthRegImage.xsd"/>
+	<!--                                                         -->
+	<xsd:group name="grp_wellLog">
+		<xsd:annotation>
+			<xsd:documentation>The non-contextual content of a WITSML Well Log.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="objectGrowing" type="witsml:ObjectGrowingState" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The growing state of the object.
+					This value is only relevant within the context of a server.
+					The server will set the growing and idle states based on additions to the object.
+					Only the closed state can be set by a client. Any attempt by a client to change the
+					state from closed to something else will be subject to the rights management of the server. 
+					Not given indicates that the state of the object is not known.</xsd:documentation>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-65, Change=Changed-type-from:logicalBoolean</xsd:appinfo>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-65, Change=Modified-description</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="dataGroup" type="witsml:kindString" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The name of the grouping represented by curves in this wellLog.
+					A group represents a named combination of curves and the curves in a particular
+					wellLog should be represented in that list.
+					Each block in the wellLog may contain curves that represent a different subset
+					of the allowed values of the group.</xsd:documentation>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-78, Change=Added</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="serviceCompany" type="witsml:nameString" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Name of contractor who provided the service.  </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="runNumber" type="witsml:str16" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Log run number. This should normally be a number; however 
+					some legacy systems encode other information in this value.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="bhaRunNumber" type="witsml:positiveCount" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The bottom hole assembly run number associated with this log.
+					This should match the run number on the BHA run object.</xsd:documentation>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-110, Change=Modified-description</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="creationDate" type="witsml:timestamp" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Date and time that the log was created.  </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="description" type="witsml:commentString" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Description of item and details.  </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="dataDelimiter" type="witsml:str2" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The value delimiter in the data string. Defaults to a comma.
+					Note that this does not affect any space delimited array data.</xsd:documentation>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-43, Change=Added</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="indexType" type="witsml:LogIndexType" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Primary index type. 
+					If the log is comprised of both DEPTH- and TIME-indexed passes,
+        				the primary index type of the log should be DEPTH. </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="minIndex" type="witsml:genericMeasure" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>A bounding primary index value for the data records of the log.
+          				The minimum indexType value for all data records of the log.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="maxIndex" type="witsml:genericMeasure" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>A bounding primary index value for the data records of the log.
+          				The maximum indexType value for all data records of the log.
+					When data is returned, the returned bounding indexs must be compared against the values
+					that are returned when data is not requested because the server may limit the amount
+					of data that is returned in a call. If not all data is returned, then the client
+					must make another call requesting data starting at the end of the previously returned data. </xsd:documentation>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-70, Change=Modified-description</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="minDateTimeIndex" type="witsml:timestamp" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>A bounding (date time) index value for the data records of the log.
+          				The minimum date time index value for all data records of the log.
+					If an index is elapsed time and a start date time is specified then
+					the corresponding date time should be calculated. </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="maxDateTimeIndex" type="witsml:timestamp" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>A bounding (date time) index value for the data records of the log.
+          				The maximum date time index value for all data records of the log. 
+					If an index is elapsed time and a start date time is specified then
+					the corresponding date time should be calculated. 
+					When data is returned, the returned bounding indexs must be compared against the values
+					that are returned when data is not requested because the server may limit the amount
+					of data that is returned in a call. If not all data is returned, then the client
+					must make another call requesting data starting at the end of the previously returned data. </xsd:documentation>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-70, Change=Modified-description</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="nullValue" type="witsml:encodedValueString" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>An empty string is the default representation of a null value for a 
+					curve (i.e. when the null value representation is not explicitly defined). 
+					If a null value representation is defined for a log, this becomes the default for all curves
+					in that log (but can be overridden at the block and curve level).
+					An empty string is always a valid null value representation in the comma delimited list.
+					An empty string is not a valid null value representation within a space delimited or base64 encoded array.
+					Specifying a null value also makes it easier to transform data back to a 
+					legacy format without having to scan the data to insure that the null pattern 
+					does not exist in the data.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="logParam" type="witsml:indexedObject" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Log parameters that apply to the overall log. 
+					A "multipass" parameter value of "true" asserts that the object contains values for 
+					bhaRunNumber (or runNumber), passNumber and direction.</xsd:documentation>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-57, Change=Modified-description</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="logCurveInfo" type="witsml:cs_wellLogCurveInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Information about a curve mnemonic. 
+					This defines curve information whose data can be recorded into many blocks. </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="blockInfo" type="witsml:cs_blockInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>The description of a data block. </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="logData" type="witsml:cs_wellLogData" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Container for one or more blocks of well log data.  </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="depthRegistrationData" type="witsml:cs_depthRegImage" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Information about the composition, layout, and depth registration 
+					of a digital image of a well log, typically a scanned image of a paper well log 
+					document.</xsd:documentation>
+					<xsd:appinfo>Modified-in-version=1.4.0, By-issue=1.3.1-15, Change=Added</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:group>
+</xsd:schema>
